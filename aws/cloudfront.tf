@@ -30,3 +30,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = true
   }
 }
+
+output "cloudfront_domain_name" {
+  value = "${aws_cloudfront_distribution.s3_distribution.domain_name}"
+}
