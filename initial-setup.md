@@ -6,7 +6,7 @@
 
 3. Clone this repo.
 
-4. Rename stuff. 3 bucket names need to be globally unique across all of AWS. The following commands should do it for you.
+4. Rename stuff. Bucket names need to be globally unique across all of AWS. The following commands should do it for you.
 
     Terraform state bucket name:
 
