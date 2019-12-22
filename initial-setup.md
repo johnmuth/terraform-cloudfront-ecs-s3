@@ -13,7 +13,7 @@
     ```
     newTerraformStateBucketName=$(git remote -v | head -n1 | awk '{print $2}' | cut -f2 -d':' |tr '/' '-'|sed "s/\.git/-terraform-state/")
     echo "newTerraformStateBucketName=$newTerraformStateBucketName"
-    for file in `find .`; do sed -i '' "s/terraform-state-bucket-name/$newTerraformStateBucketName/" "$f"; done
+    for file in `grep -rl 'terraform-state-bucket-name' s3 terraform-state cloudfront-s3`; do sed -i '' "s/terraform-state-bucket-name/$newTerraformStateBucketName/" "$file"; done
     ```
 
     Static files bucket name:
@@ -21,7 +21,7 @@
     ```
     newStaticFilesBucketName=$(git remote -v | head -n1 | awk '{print $2}' | cut -f2 -d':' |tr '/' '-'|sed "s/\.git/-static-files/")
     echo "newStaticFilesBucketName=$newStaticFilesBucketName"
-    for file in `find .`; do sed -i '' "s/static-files-bucket-name/$newStaticFilesBucketName/" "$f"; done
+    for file in `grep -rl 'static-files-bucket-name' s3 cloudfront-s3`; do sed -i '' "s/static-files-bucket-name/$newStaticFilesBucketName/" "$file"; done
     ```
 
 5. Set up environment variables for AWS access 
