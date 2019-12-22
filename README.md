@@ -5,55 +5,26 @@ This project demonstrates how to use Terraform to manage a bunch of AWS infrastr
 The main thing I wanted to figure out was how to set up Cloudfront to route traffic to a webapp and to an S3 bucket, 
 depending on the path.
 
-## Overview
-
-- S3 bucket : to serve static files
-- Cloudfront : to route traffic to S3 or ECS depending on path
-- TODO : webapp : Node.js + Express webapp
-- TODO : ECS cluster : to run the webapp in Docker container(s)  
-
 ## Prerequisites
 
 - Docker
 - AWS account
 
-## Quick start
+## Table of contents
 
-1. Clone this repo
+1. [Initial setup](initial-setup.md)
 
-2. Set environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+2. [S3](s3/README.md)
 
-3. Create an S3 bucket to hold the Terraform state (see Notes below for why).
+3. [Cloudfront and S3](cloudfront-s3/README.md)
 
-    ```
-    ./create-tf-state-bucket.sh
-    ``` 
-
-4. Create the infrastructure
-
-    ```
-    ./create-infra.sh
-    ``` 
-
-5. Upload a file to the static files S3 bucket.
-
-    ```
-    ./upload-static-file.sh
-    ```
-
-6. Check that the file is available via the Cloudformation domain.
-
-    ```
-    curl http://dvibgn96rogbo.cloudfront.net/hello-world.txt
-    ```
-
-7. Tear down the infrastructure.
-
-    ```
-    ./delete-infra.sh
-    ``` 
+4. TODO : Cloudfront and ECS and S3
 
 ## Notes
 
-- Runs Terraform commands in Docker. I've chosen to do it this way to avoid installing Terraform natively.
-- Stores [Terraform state](https://www.terraform.io/docs/state) in S3. Useful if working with Terraform in a team.
+- I'm running Terraform commands in Docker containers. Why? 
+    - to avoid installing Terraform natively, so I don't have to worry about Terraform versions, dependencies, etc.
+    - in anticipation of running the code from some CI environment.
+
+- I'm storing [Terraform state](https://www.terraform.io/docs/state) in S3. Why? 
+    - in anticipation of using Terraform with a team.

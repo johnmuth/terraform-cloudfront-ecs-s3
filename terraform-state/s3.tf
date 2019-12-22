@@ -1,8 +1,9 @@
 provider "aws" {
   region = "eu-west-2"
 }
-resource "aws_s3_bucket" "cloudfront_ecs_s3_terraform_state_test" {
-  bucket = "cloudfront-ecs-s3-terraform-state-test"
+
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "terraform-state-bucket-name"
 
   versioning {
     enabled = true
@@ -13,6 +14,6 @@ resource "aws_s3_bucket" "cloudfront_ecs_s3_terraform_state_test" {
   }
 
   tags = {
-    Name = "Cloudfront ECS S3 Terraform State - Test"
+    Name = "Terraform State"
   }
 }

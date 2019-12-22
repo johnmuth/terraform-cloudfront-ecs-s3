@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dockerImage=cloudfront-ecs-s3
+dockerImage=terraform-cloudfront-ecs-s3
 
 docker build --build-arg aws_access_key_id="${AWS_ACCESS_KEY_ID}" \
   --build-arg aws_secret_access_key="${AWS_SECRET_ACCESS_KEY}" \
