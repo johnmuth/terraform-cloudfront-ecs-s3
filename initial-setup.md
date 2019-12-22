@@ -4,7 +4,9 @@
 
 2. [Create an AWS account](https://aws.amazon.com/) if you don't already have one.
 
-3. Clone this repo.
+3. Fork this repo. (I suggest fork because the scripts below use the git repo url to generate unique bucket names - 
+they won't be unique if you just clone. Alternatively you could fiddle with the scripts so they don't rely on the git 
+repo url.)
 
 4. Rename stuff. Bucket names need to be globally unique across all of AWS. The following commands should do it for you.
 
