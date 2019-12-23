@@ -9,7 +9,7 @@
         "s3:GetObject"
       ],
       "Resource": [
-        "arn:aws:s3:::static-files-bucket-name/*"
+        "arn:aws:s3:::johnmuth-terraform-cloudfront-ecs-s3-static-files/*"
       ]
     }
   ]

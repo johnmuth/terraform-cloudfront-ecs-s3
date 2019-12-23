@@ -12,4 +12,4 @@ docker run --rm \
 	-e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" \
 	-v "$(pwd):/project" \
 	mesosphere/aws-cli \
-	s3 cp /project/hello-world.txt s3://static-files-bucket-name/
+	s3 cp /project/hello-world.txt s3://johnmuth-terraform-cloudfront-ecs-s3-static-files/

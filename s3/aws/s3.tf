@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "static_files" {
-  bucket = "static-files-bucket-name"
+  bucket = "johnmuth-terraform-cloudfront-ecs-s3-static-files"
 }
 
 resource "aws_s3_bucket_policy" "static_files" {

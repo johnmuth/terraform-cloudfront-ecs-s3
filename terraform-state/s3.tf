@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "terraform-state-bucket-name"
+  bucket = "johnmuth-terraform-cloudfront-ecs-s3-terraform-state"
 
   versioning {
     enabled = true
