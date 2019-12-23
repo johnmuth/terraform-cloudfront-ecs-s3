@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     viewer_protocol_policy = "allow-all"
   }
   origin {
-    domain_name = aws_s3_bucket.cloudfront_ecs_s3.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.static_files.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
   }
   restrictions {
