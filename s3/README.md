@@ -37,7 +37,7 @@ Makes the bucket publicly accessible.
 4. Check that the file is available via the AWS S3 web URL.
 
     ```
-    curl http://static-files-bucket-name.s3.eu-west-2.amazonaws.com/hello-world.txt
+    curl http://static-files-bucket-name.s3-website-eu-west-2.amazonaws.com/hello-world.txt
     ```
 
 7. Tear down the infrastructure.
