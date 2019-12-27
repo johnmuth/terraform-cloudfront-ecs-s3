@@ -5,5 +5,5 @@ resource "aws_s3_bucket" "static_files" {
 resource "aws_s3_bucket_policy" "static_files" {
   bucket = aws_s3_bucket.static_files.id
 
-  policy = file("s3-bucket-policy.json")
+  policy = file("${path.module}/s3-bucket-policy.json")
 }

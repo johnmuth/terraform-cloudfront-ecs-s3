@@ -1,1 +1,3 @@
 .idea
+.terraform
+node_modules

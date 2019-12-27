@@ -7,8 +7,9 @@ depending on the path.
 
 ## Prerequisites
 
-- Docker
 - AWS account
+- Docker
+- Terraform
 
 ## Table of contents
 
@@ -21,10 +22,6 @@ depending on the path.
 4. TODO : Cloudfront and ECS and S3
 
 ## Notes
-
-- I'm running Terraform commands in Docker containers. Why? 
-    - to avoid installing Terraform natively, so I don't have to worry about Terraform versions, dependencies, etc.
-    - in anticipation of running the code from some CI environment.
 
 - I'm storing [Terraform state](https://www.terraform.io/docs/state) in S3. Why? 
     - in anticipation of using Terraform with a team.
