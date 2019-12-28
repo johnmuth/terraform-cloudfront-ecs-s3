@@ -7,3 +7,7 @@ resource "aws_s3_bucket_policy" "static_files" {
 
   policy = file("${path.module}/s3-bucket-policy.json")
 }
+
+output "s3_website_endpoint" {
+  value = aws_s3_bucket.static_files.website_endpoint
+}

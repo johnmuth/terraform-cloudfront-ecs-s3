@@ -6,25 +6,21 @@ resource "aws_subnet" "eu-west-2a-public" {
   cidr_block = "10.0.101.0/24"
   availability_zone = "eu-west-2a"
 }
-
 resource "aws_subnet" "eu-west-2b-public" {
   vpc_id     = aws_vpc.app-vpc.id
   cidr_block = "10.0.102.0/24"
   availability_zone = "eu-west-2b"
 }
-
 resource "aws_subnet" "eu-west-2a-private" {
   vpc_id     = aws_vpc.app-vpc.id
   cidr_block = "10.0.1.0/24"
   availability_zone = "eu-west-2a"
 }
-
 resource "aws_subnet" "eu-west-2b-private" {
   vpc_id     = aws_vpc.app-vpc.id
   cidr_block = "10.0.2.0/24"
   availability_zone = "eu-west-2b"
 }
-
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.app-vpc.id
 }
@@ -63,7 +59,7 @@ resource "aws_route" "public_igw" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
-resource "aws_route" "eu_west_2a_public" {
+resource "aws_route" "private_ngw" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.public.id
@@ -111,19 +107,4 @@ resource "aws_security_group" "api-ingress" {
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-output "vpc_id" {
-  value = aws_vpc.app-vpc.id
-}
-output "eu_west_2a_public_subnet_id" {
-  value = aws_subnet.eu-west-2a-public.id
-}
-output "eu_west_2b_public_subnet_id" {
-  value = aws_subnet.eu-west-2b-public.id
-}
-output "eu_west_2a_private_subnet_id" {
-  value = aws_subnet.eu-west-2a-private.id
-}
-output "eu_west_2b_private_subnet_id" {
-  value = aws_subnet.eu-west-2b-private.id
 }
