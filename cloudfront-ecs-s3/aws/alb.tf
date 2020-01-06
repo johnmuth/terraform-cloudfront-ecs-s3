@@ -17,6 +17,7 @@ resource "aws_alb" "webapp" {
   name = "webapp"
   internal = false
   load_balancer_type = "application"
+//  TODO: use var for region
   subnets = [
     aws_subnet.eu-west-2a-public.id,
     aws_subnet.eu-west-2b-public.id

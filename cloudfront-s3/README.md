@@ -8,15 +8,15 @@ In this stage we'll use Terraform to set up:
 
 ## Quick start
 
-2. Set environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+1. Set environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 
-3. Create an S3 bucket to hold the Terraform state (see Notes below for why).
+2. Add two new variables to your .tfvars file:
 
     ```
-    ./create-tf-state-bucket.sh
+    echo "xxx=yyy" >> ../
     ``` 
 
-4. Create the infrastructure
+2. Create the infrastructure
 
     ```
     ./create-infra.sh

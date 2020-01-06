@@ -19,9 +19,5 @@ depending on the path.
 
 3. [Cloudfront and S3](cloudfront-s3/README.md)
 
-4. TODO : Cloudfront and ECS and S3
+4. [Cloudfront and ECS and S3](cloudfront-ecs-s3/README.md)
 
-## Notes
-
-- I'm storing [Terraform state](https://www.terraform.io/docs/state) in S3. Why? 
-    - in anticipation of using Terraform with a team.

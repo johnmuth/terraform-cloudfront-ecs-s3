@@ -14,34 +14,45 @@ Specifies which AWS region to use.
 
 Defines the static files S3 bucket.
 
-#### [s3-bucket-policy.json](aws/s3-bucket-policy.json)
+#### [variables.tf](aws/variables.tf)
 
-Makes the bucket publicly accessible.
+Declares two [Terraform Input Variables](https://www.terraform.io/docs/configuration/variables.html), `aws_region` and `static_files_bucket`.
+
+Values for Input Variables can be provided on the command line or the way I'll do it here, with a Variable Definitions (.tfvars) File.
 
 ## Do it
 
 1. Set environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 
-2. Create the infrastructure
+2. Create your Variable Definitions File.
 
     ```
-    ./create-infra.sh
+    cp ../example.tfvars ../testing.tfvars
+    vi ../testing.tfvars    
+    ```
+
+3. Create the infrastructure.
+
+    ```
+    terraform init aws
+    terraform plan -var-file='../testing.tfvars' aws
+    terraform apply -var-file='../testing.tfvars' aws
     ``` 
 
-3. Upload a file to the static files S3 bucket.
+4. Upload a file to the static files S3 bucket.
 
     ```
-    ./upload-static-file.sh
+    ./upload-static-file.sh -r eu-west-2 -b my-static-files-bucket
     ```
 
-4. Check that the file is available via the AWS S3 web URL.
+5. Check that the file is available via the AWS S3 web URL.
 
     ```
-    curl http://johnmuth-terraform-cloudfront-ecs-s3-static-files.s3.eu-west-2.amazonaws.com/hello-world.txt
+    curl http://my-static-files-bucket.s3.eu-west-2.amazonaws.com/hello-world.txt
     ```
 
-7. Tear down the infrastructure.
+6. (Optional) Tear it all down.
 
     ```
-    ./delete-infra.sh
+    terraform destroy -var-file='../testing.tfvars' aws
     ``` 

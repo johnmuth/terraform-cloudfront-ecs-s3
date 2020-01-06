@@ -1,9 +1,29 @@
 resource "aws_s3_bucket" "static_files" {
-  bucket = "johnmuth-terraform-cloudfront-ecs-s3-static-files"
+  bucket = var.static_files_bucket
 }
 
 resource "aws_s3_bucket_policy" "static_files" {
   bucket = aws_s3_bucket.static_files.id
+  policy = <<POLICYJSON
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::${var.static_files_bucket}/*"
+      ]
+    }
+  ]
+}
+POLICYJSON
+}
 
-  policy = file("s3-bucket-policy.json")
+output "s3_website_endpoint" {
+  value = aws_s3_bucket.static_files.website_endpoint
 }

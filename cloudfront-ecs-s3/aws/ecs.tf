@@ -1,9 +1,9 @@
 resource "aws_ecs_cluster" "webapp" {
-  name = "johnmuth-terraform-cloudfront-ecs-s3-webapp"
+  name = var.webapp_id
 }
 
 resource "aws_ecs_service" "webapp" {
-  name = "johnmuth-terraform-cloudfront-ecs-s3-webapp"
+  name = var.webapp_id
   task_definition = aws_ecs_task_definition.webapp.arn
   cluster = aws_ecs_cluster.webapp.id
   launch_type = "FARGATE"
@@ -21,7 +21,7 @@ resource "aws_ecs_service" "webapp" {
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.webapp.arn
-    container_name = "johnmuth-terraform-cloudfront-ecs-s3-webapp"
+    container_name = var.webapp_id
     container_port = "3000"
   }
 }
@@ -51,11 +51,11 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
 }
 
 resource "aws_cloudwatch_log_group" "webapp" {
-  name = "/ecs/johnmuth-terraform-cloudfront-ecs-s3-webapp"
+  name = "/ecs/${var.webapp_id}"
 }
 
 resource "aws_ecs_task_definition" "webapp" {
-  family = "johnmuth-terraform-cloudfront-ecs-s3-webapp"
+  family = var.webapp_id
   requires_compatibilities = ["FARGATE"]
   execution_role_arn = aws_iam_role.webapp-task-execution-role.arn
   network_mode = "awsvpc"
@@ -64,7 +64,7 @@ resource "aws_ecs_task_definition" "webapp" {
   container_definitions = <<DEFINITIONS
 [
   {
-    "name": "johnmuth-terraform-cloudfront-ecs-s3-webapp",
+    "name": "${var.webapp_id}",
     "image": "${aws_ecr_repository.webapp.repository_url}",
     "essential": true,
     "networkMode": "awsvpc",
@@ -85,7 +85,7 @@ resource "aws_ecs_task_definition" "webapp" {
       "logDriver": "awslogs",
       "options": {
         "awslogs-group": "${aws_cloudwatch_log_group.webapp.name}",
-        "awslogs-region": "eu-west-2",
+        "awslogs-region": "${var.aws_region}",
         "awslogs-stream-prefix": "ecs"
       }
     }

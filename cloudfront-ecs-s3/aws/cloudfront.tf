@@ -20,19 +20,6 @@ resource "aws_cloudfront_distribution" "s3_alb" {
     }
   }
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD"]
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
-    target_origin_id = local.s3_origin_id
-    viewer_protocol_policy = "redirect-to-https"
-  }
-  ordered_cache_behavior {
-    path_pattern     = "/webapp/*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.alb_origin_id
@@ -45,7 +32,19 @@ resource "aws_cloudfront_distribution" "s3_alb" {
         forward = "all"
       }
     }
-
+    viewer_protocol_policy = "redirect-to-https"
+  }
+  ordered_cache_behavior {
+    path_pattern     = "/assets/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+    target_origin_id = local.s3_origin_id
     viewer_protocol_policy = "redirect-to-https"
   }
   restrictions {
@@ -56,6 +55,10 @@ resource "aws_cloudfront_distribution" "s3_alb" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
+  logging_config {
+    bucket = aws_s3_bucket.cloudfront_logs.bucket_domain_name
+  }
+  depends_on = [aws_s3_bucket.cloudfront_logs]
 }
 
 output "cloudfront_domain_name" {
