@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "static_files" {
-  bucket = var.static_files_bucket
+  bucket = "${var.webapp_id}-static-files"
   force_destroy = true
 }
 
@@ -18,7 +18,7 @@ resource "aws_s3_bucket_policy" "static_files" {
         "s3:GetObject"
       ],
       "Resource": [
-        "arn:aws:s3:::${var.static_files_bucket}/*"
+        "arn:aws:s3:::${var.webapp_id}-static-files/*"
       ]
     }
   ]
@@ -31,6 +31,6 @@ output "s3_website_endpoint" {
 }
 
 resource "aws_s3_bucket" "cloudfront_logs" {
-  bucket = var.cloudfront_logs_bucket
+  bucket = "${var.webapp_id}-cloudfront-logs"
   force_destroy = true
 }

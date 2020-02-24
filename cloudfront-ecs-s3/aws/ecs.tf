@@ -27,7 +27,7 @@ resource "aws_ecs_service" "webapp" {
 }
 
 resource "aws_iam_role" "webapp-task-execution-role" {
-  name = "webapp-task-execution-role"
+  name = "${var.webapp_id}-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs-task-assume-role.json
 }
 
